@@ -17,7 +17,7 @@ function Fitness() {
     setLoading(true)
 
     const res = await axios.post(
-      "http://localhost:5000/api/fitness",
+      "https://trimind-backend.onrender.com/api/fitness",
       formData
     )
 

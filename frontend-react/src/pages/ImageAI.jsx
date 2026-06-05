@@ -18,7 +18,7 @@ const handleGenerate = async () => {
     console.log("PROMPT =", prompt);
 
     const res = await axios.post(
-      "http://localhost:5000/api/image",
+      "https://trimind-backend.onrender.com/api/image",
       {
         prompt,
       }

@@ -50,7 +50,7 @@ const userMessage = {
   try {
 
     const res = await axios.post(
-      "http://localhost:5000/api/chat",
+      "https://trimind-backend.onrender.com/api/chat",
       {
        message: messageText
       }
