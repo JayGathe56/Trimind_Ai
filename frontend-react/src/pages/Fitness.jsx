@@ -454,14 +454,14 @@ leading-none
         // > backdrop-blur-3xl bg-white/[0.03] border border-white/10 rounded-[35px] p-8 relative overflow-y-auto h-[89vh]"
        
         // className="bg-gradient-to-br from-emerald-500/20 via-cyan-500/10 to-transparent backdrop-blur-3xl border border-emerald-400/20 rounded-[40px] p-10 shadow-[0_0_100px_rgba(16,185,129,0.15)] overflow-y-auto h-[82vh]"
-        className="custom-scroll relative isolate overflow-y-auto overflow-x-hidden lg:h-[91vh] min-h-[500px] rounded-[40px] border border-emerald-400/20 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.25),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_35%),linear-gradient(135deg,rgba(0,20,20,0.95),rgba(0,10,25,0.98))] backdrop-blur-3xl p-10"
+       className="relative isolate overflow-hidden h-[75vh] lg:h-[91vh] rounded-[40px] border border-emerald-400/20 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.25),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_35%),linear-gradient(135deg,rgba(0,20,20,0.95),rgba(0,10,25,0.98))] backdrop-blur-3xl p-10"
         >
 
-        <div className="relative z-10 overflow-y-auto h-[100%] pr-2">
+       <div className="relative z-10 h-full pr-2">
 
             <div className="flex items-center justify-between">
 
-              <h2 className="text-4xl font-bold">
+              <h2 className="text-white text-4xl font-bold">
                 AI Fitness Plan
               </h2>
 
@@ -473,7 +473,7 @@ leading-none
 
             </div>
 
-           <div className="flex items-center justify-center min-h-[500px] text-center">
+           <div className="w-full">
 
   {loading ? (
 
@@ -489,13 +489,13 @@ leading-none
 
 ) : plan ? (
 
-  <div className="text-left w-full">
+  <div className="text-left w-full overflow-y-auto max-h-[55vh] lg:max-h-[70vh] pr-2 custom-scroll">
 
     <h3 className="text-4xl font-bold mb-8">
       Your AI Fitness Plan
     </h3>
 
-    <pre className="whitespace-pre-wrap text-gray-300 leading-8">
+    <pre className="whitespace-pre-wrap break-words text-gray-300 leading-8">
       {plan}
     </pre>
 
@@ -505,7 +505,7 @@ leading-none
 
   <div>
 
-    <h3 className="text-4xl font-bold">
+    <h3 className="text-4xl font-bold mt-11">
       Awaiting Analysis
     </h3>
 
