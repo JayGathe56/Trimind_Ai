@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 
 function Chat() {
+  const [copiedIndex, setCopiedIndex] = useState(null)
 const textareaRef = useRef(null);
 
   const [input, setInput] = useState("")
@@ -22,6 +23,7 @@ const textareaRef = useRef(null);
 const [currentChatId, setCurrentChatId] = useState(null)
 
   const [loading, setLoading] = useState(false)
+  const [showSidebar, setShowSidebar] = useState(false)
 
   const messagesRef = useRef(null)
 
@@ -121,9 +123,9 @@ useEffect(() => {
         {/* Animated Background */}
 <div className="absolute inset-0 overflow-hidden">
 
-  <div className="absolute top-[-200px] left-[-200px] w-[700px] h-[700px] bg-cyan-500/20 blur-[180px] rounded-full animate-pulse"></div>
+  <div className="absolute top-[-200px] left-[-200px] w-[700px] h-[700px] bg-cyan-500/8 blur-[180px] rounded-full animate-pulse"></div>
 
-  <div className="absolute bottom-[-250px] right-[-250px] w-[700px] h-[700px] bg-purple-500/20 blur-[180px] rounded-full animate-pulse"></div>
+  <div className="absolute bottom-[-250px] right-[-250px] w-[700px] h-[700px] bg-purple-500/5 blur-[180px] rounded-full animate-pulse"></div>
 
   <div className="absolute top-[40%] left-[35%] w-[400px] h-[400px] bg-blue-500/10 blur-[140px] rounded-full"></div>
 
@@ -132,9 +134,49 @@ useEffect(() => {
 </div>
 
       {/* Sidebar */}
-      <div className="w-[280px] h-screen border-r border-white/10 bg-white/[0.03] backdrop-blur-3xl p-6 flex flex-col shrink-0">
+    <div
+  className={`
+  fixed md:relative
+  left-0 top-0
+  h-screen
+  w-[85%] max-w-[320px]
+  z-50
+
+  ${showSidebar ? "translate-x-0" : "-translate-x-full"}
+
+  md:translate-x-0
+  transition-all duration-500 ease-out
+
+  border-r border-white/10
+  backdrop-blur-3xl
+
+  bg-gradient-to-b
+  from-cyan-950/80
+  via-slate-950/90
+  to-purple-950/80
+
+  shadow-[0_0_80px_rgba(34,211,238,0.15)]
+
+  p-6
+  flex flex-col
+  shrink-0
+  `}
+>
 
         <div className="flex flex-col flex-1 min-h-0">
+         <button
+  onClick={() => setShowSidebar(false)}
+  className="
+  md:hidden
+  mb-6
+  text-2xl
+  text-gray-400
+  hover:text-white
+  transition
+  "
+>
+  ✕
+</button>
 
   <div className="flex items-center gap-3 mb-10">
 
@@ -251,10 +293,37 @@ useEffect(() => {
      <div className="flex flex-col flex-1 h-screen">
 
         {/* Top */}
-        <div className="border-b border-white/10 bg-white/[0.03] backdrop-blur-3xl px-8 py-5 flex items-center justify-between shrink-0">
+        
+<div className="
+border-b
+border-white/10
+bg-white/[0.03]
+backdrop-blur-3xl
 
+px-4 md:px-8
+py-4 md:py-5
+
+flex
+flex-col md:flex-row
+gap-4
+
+md:items-center
+justify-between
+
+shrink-0
+">
           <div>
-
+<button
+  onClick={() => setShowSidebar(true)}
+  className="
+    md:hidden
+    text-2xl
+    hover:text-cyan-400
+    transition-all duration-300
+  "
+>
+  ☰
+</button>
             <div className="text-xl font-semibold">
               TriMind Assistant
             </div>
@@ -281,6 +350,17 @@ useEffect(() => {
   </div>
 
 </div>
+{showSidebar && (
+  <div
+    onClick={() => setShowSidebar(false)}
+    className="
+      fixed inset-0 z-40 md:hidden
+      bg-black/40
+      backdrop-blur-sm
+      transition-all duration-300
+    "
+  />
+)}
 
         </div>
 
@@ -289,7 +369,16 @@ useEffect(() => {
 
   <div
   ref={messagesRef}
-  className="messages-scroll absolute inset-0 overflow-y-auto px-8 py-8 space-y-8"
+  className="
+messages-scroll
+absolute inset-0
+overflow-y-auto
+
+px-4 md:px-8
+py-6 md:py-8
+
+space-y-6 md:space-y-8
+"
 >
 
 
@@ -319,13 +408,47 @@ useEffect(() => {
             >
 
               <div
-                className={`max-w-3xl px-6 py-5 rounded-[28px] shadow-[0_0_30px_rgba(255,255,255,0.03)] leading-8 ${
+                className={`group relative max-w-[90%] md:max-w-3xl px-6 py-5 rounded-[28px] shadow-[0_0_30px_rgba(255,255,255,0.03)] leading-8 ${
                   msg.role === "user"
                     ? "bg-cyan-500/10 border border-cyan-400/20"
                     : "bg-white/[0.04] border border-white/10 text-gray-300 backdrop-blur-3xl"
                 }`}
               >
+{msg.role === "ai" && (
 
+  <button
+    onClick={() => {
+
+      navigator.clipboard.writeText(msg.text)
+
+      setCopiedIndex(index)
+
+      setTimeout(() => {
+        setCopiedIndex(null)
+      }, 1500)
+
+    }}
+    className="
+      absolute
+      top-3
+      right-3
+
+      opacity-0
+      group-hover:opacity-100
+
+      text-gray-400
+      hover:text-white
+
+      transition-all
+      duration-300
+    "
+  >
+
+    {copiedIndex === index ? "✓" : "⧉"}
+
+  </button>
+
+)}
                 {msg.text}
 
               </div>
@@ -373,7 +496,6 @@ useEffect(() => {
 
     <textarea
     ref={textareaRef}
-  value={input}
       value={input}
       onChange={(e) => setInput(e.target.value)}
       onInput={(e) => {
@@ -389,7 +511,25 @@ useEffect(() => {
       }}
       rows={1}
       placeholder="Ask TriMind AI anything..."
-      className="w-full bg-white/[0.04] outline-none px-7 py-5 pr-32 text-lg backdrop-blur-3xl resize-none overflow-y-auto min-h-[70px] max-h-[200px]"
+     className="
+w-full
+bg-white/[0.04]
+outline-none
+
+px-4 md:px-7
+py-4 md:py-5
+
+pr-24 md:pr-32
+
+text-base md:text-lg
+
+backdrop-blur-3xl
+resize-none
+overflow-y-auto
+
+min-h-[70px]
+max-h-[200px]
+"
     />
 
   </div>
@@ -397,7 +537,20 @@ useEffect(() => {
   <button
     onClick={handleSend}
     
-    className="absolute right-3 bottom-3 bg-cyan-400 text-black px-6 py-3 rounded-2xl"
+   className="
+absolute
+right-2 md:right-3
+bottom-2 md:bottom-3
+
+bg-cyan-400
+text-black
+
+px-4 md:px-6
+py-2 md:py-3
+
+rounded-2xl
+text-sm md:text-base
+"
   >
     Send
   </button>

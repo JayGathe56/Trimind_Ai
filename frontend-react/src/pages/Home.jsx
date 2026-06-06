@@ -1,6 +1,36 @@
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
+import { useState, useEffect, useRef } from "react"
 function Home() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null)
+
+useEffect(() => {
+
+  const handleClickOutside = (event) => {
+
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target)
+    ) {
+      setMenuOpen(false)
+    }
+
+  }
+
+  document.addEventListener(
+    "mousedown",
+    handleClickOutside
+  )
+
+  return () => {
+    document.removeEventListener(
+      "mousedown",
+      handleClickOutside
+    )
+  }
+
+}, [])
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#030303] text-white">
 
@@ -15,50 +45,123 @@ function Home() {
       {/* AI Orb */}
       <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-cyan-400/30 via-blue-500/20 to-purple-500/20 blur-[120px] opacity-70 animate-pulse"></div>
 
-      {/* Navbar */}
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl backdrop-blur-3xl bg-white/[0.03] border border-white/10 rounded-2xl px-8 py-5 shadow-2xl">
+     {/* Navbar */}
+<nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] w-[95%] max-w-6xl backdrop-blur-3xl bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 shadow-2xl">
 
-        <div className="flex items-center justify-between">
+  <div className="flex items-center justify-between">
 
-          <div className="flex items-center gap-3">
+    {/* Logo */}
+    <div className="flex items-center gap-3">
 
-            <div className="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_30px_#22d3ee] animate-pulse"></div>
+      <div className="w-3 h-3 rounded-full bg-cyan-400"></div>
 
-            <h1 className="text-xl font-semibold tracking-wide">
-              TriMind AI
-            </h1>
+      <h1 className="text-lg font-semibold">
+        TriMind AI
+      </h1>
 
-          </div>
+    </div>
 
-          <div className="hidden md:flex items-center gap-10 text-sm text-gray-400">
+    {/* Desktop Menu */}
+    <div className="hidden md:flex items-center gap-10 text-sm text-gray-400">
 
-  <Link
-    to="/login"
-    className="hover:text-white transition-all"
-  >
-    Login
-  </Link>
+      <Link to="/login" className="hover:text-white transition-all">
+        Login
+      </Link>
 
-  <Link
-    to="/signup"
-    className="hover:text-white transition-all"
-  >
-    Signup
-  </Link>
+      <Link to="/signup" className="hover:text-white transition-all">
+        Signup
+      </Link>
 
-            <a href="#" className="hover:text-white transition-all">
-              Features
-            </a>
+      <a href="#" className="hover:text-white transition-all">
+        Features
+      </a>
 
-            <a href="#" className="hover:text-white transition-all">
-              Pricing
-            </a>
+      <a href="#" className="hover:text-white transition-all">
+        Pricing
+      </a>
 
-          </div>
+    </div>
 
-        </div>
+    {/* Mobile Menu Button */}
+   <button
+  onClick={() => setMenuOpen(!menuOpen)}
+  // className="md:hidden text-2xl text-white"
+  className="md:hidden text-xl text-gray-300 hover:text-white"
+>
+  {menuOpen ? "✕" : "☰"}
+</button>
 
-      </nav>
+  </div>
+
+  {/* Mobile Dropdown */}
+  {menuOpen && (
+
+    <div
+     ref={menuRef}
+      className="
+       onMouseLeave={() => setMenuOpen(false)}
+      md:hidden
+      absolute
+      top-[80px]
+      right-4
+
+      w-[180px]
+
+      bg-[#07161c]/95
+      backdrop-blur-3xl
+
+      border border-cyan-400/20
+
+      rounded-2xl
+
+      p-3
+
+      flex flex-col
+      gap-2
+
+      shadow-[0_0_30px_rgba(34,211,238,0.15)]
+
+      z-[9999]
+      "
+    >
+
+      <Link
+        to="/login"
+        onClick={() => setMenuOpen(false)}
+        className="px-4 py-3 rounded-xl text-white hover:bg-cyan-500/10"
+      >
+        Login
+      </Link>
+
+      <Link
+        to="/signup"
+        onClick={() => setMenuOpen(false)}
+        className="px-4 py-3 rounded-xl text-white hover:bg-cyan-500/10"
+      >
+        Signup
+      </Link>
+
+      <a
+        href="#"
+        onClick={() => setMenuOpen(false)}
+        className="px-4 py-3 rounded-xl text-white hover:bg-cyan-500/10"
+      >
+        Features
+      </a>
+
+      <a
+        href="#"
+        onClick={() => setMenuOpen(false)}
+        className="px-4 py-3 rounded-xl text-white hover:bg-cyan-500/10"
+      >
+        Pricing
+      </a>
+
+    </div>
+
+  )}
+
+</nav>
 
       {/* Hero */}
       <motion.section
@@ -74,7 +177,7 @@ function Home() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-[70px] md:text-[130px] font-black leading-[0.9] tracking-[-5px] max-w-7xl">
+        <h1 className="text-[58px] sm:text-[70px] md:text-[130px] font-black leading-[0.9] tracking-[-5px] max-w-7xl">
 
           Build The
 
@@ -100,24 +203,80 @@ function Home() {
         {/* Buttons */}
         <div className="flex flex-col md:flex-row items-center gap-6 mt-14">
 
-          <Link
-  to="/platform" className="group relative overflow-hidden bg-white
-   text-black px-10 py-5 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.15)]">
+        <Link
+  to="/platform"
+  className="
+  group
+  relative
+  overflow-hidden
 
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+  bg-white
+  text-black
 
-            <span className="relative z-10 flex items-center gap-3">
+  px-8 md:px-10
+  py-4 md:py-5
 
-              <span className="text-xl">
-                🚀
-              </span>
+  rounded-2xl
+  font-semibold
+  text-base md:text-lg
 
-              Launch Platform
+  transition-all
+  duration-500
 
-            </span>
+  shadow-[0_0_50px_rgba(34,211,238,0.35)]
 
-         </Link>
+  hover:scale-105
+  hover:shadow-[0_0_90px_rgba(34,211,238,0.8)]
 
+  active:scale-95
+  "
+>
+  {/* Animated Gradient */}
+  <div
+    className="
+    absolute
+    inset-0
+
+    bg-gradient-to-r
+    from-cyan-300
+    via-blue-400
+    to-purple-500
+
+    opacity-70
+    md:opacity-0
+
+    md:group-hover:opacity-100
+
+    transition-all
+    duration-700
+    "
+  />
+
+  {/* Extra Glow */}
+  <div
+    className="
+    absolute
+    inset-0
+
+    blur-2xl
+
+    bg-cyan-400/40
+
+    opacity-40
+    md:opacity-0
+
+    md:group-hover:opacity-100
+
+    transition-all
+    duration-700
+    "
+  />
+
+  <span className="relative z-10 flex items-center gap-3">
+    <span className="text-xl">🚀</span>
+    Launch Platform
+  </span>
+</Link>
           <button className="backdrop-blur-3xl bg-white/[0.04] border border-white/10 hover:border-cyan-400 px-10 py-5 rounded-2xl text-lg transition-all duration-500 hover:bg-white/[0.08] shadow-2xl">
 
             <span className="flex items-center gap-3">
@@ -140,7 +299,22 @@ function Home() {
         </div>
 
         {/* Floating Cards */}
-        <div className="relative mt-24 w-full max-w-6xl h-[320px]">  
+        <div
+  className="
+relative
+mt-24
+w-full
+max-w-6xl
+
+flex
+flex-col
+items-center
+gap-8
+
+md:block
+md:h-[320px]
+"
+> 
           {/* Left Card */}
 <Link to="/chat">
 
@@ -150,7 +324,25 @@ function Home() {
     duration: 4,
     repeat: Infinity,
   }}
-  className="absolute left-0 top-10 backdrop-blur-3xl bg-white/[0.04] border border-white/10 rounded-[30px] p-6 w-[260px] shadow-2xl rotate-[-8deg] hover:rotate-0 transition-all duration-500"
+  className="
+relative
+md:absolute
+md:left-0
+md:top-10
+
+w-full
+max-w-[260px]
+
+rotate-0
+md:rotate-[-8deg]
+
+backdrop-blur-3xl
+bg-white/[0.04]
+border border-white/10
+rounded-[30px]
+p-6
+shadow-2xl
+"
 >
 
             <div className="text-cyan-400 text-sm mb-4">
@@ -164,10 +356,7 @@ function Home() {
             <p className="text-gray-500 leading-7">
               Advanced AI conversations powered by futuristic models.
             </p>
-          
-            <p className="text-gray-500 leading-7">
-              Advanced AI conversations powered by futuristic models.
-            </p>
+
          </motion.div>
          </Link>
 
@@ -179,7 +368,23 @@ function Home() {
     duration: 5,
     repeat: Infinity,
   }}
-  className="absolute left-1/2 -translate-x-1/2 top-0 backdrop-blur-3xl bg-white/[0.05] border border-white/10 rounded-[35px] p-8 w-[320px] shadow-2xl"
+  className="
+relative
+md:absolute
+md:left-1/2
+md:-translate-x-1/2
+md:top-0
+
+w-full
+max-w-[320px]
+
+backdrop-blur-3xl
+bg-white/[0.05]
+border border-white/10
+rounded-[35px]
+p-8
+shadow-2xl
+"
 >
 
             <div className="text-purple-400 text-sm mb-4">
@@ -207,7 +412,25 @@ function Home() {
     duration: 6,
     repeat: Infinity,
   }}
-  className="absolute right-0 top-12 backdrop-blur-3xl bg-white/[0.04] border border-white/10 rounded-[30px] p-6 w-[260px] shadow-2xl rotate-[8deg] hover:rotate-0 transition-all duration-500"
+ className="
+relative
+md:absolute
+md:right-0
+md:top-12
+
+w-full
+max-w-[260px]
+
+rotate-0
+md:rotate-[8deg]
+
+backdrop-blur-3xl
+bg-white/[0.04]
+border border-white/10
+rounded-[30px]
+p-6
+shadow-2xl
+"
 >
 
             <div className="text-green-400 text-sm mb-4">
@@ -222,17 +445,13 @@ function Home() {
               Generate futuristic visuals and stunning AI art instantly.
             </p>
 
-            <p className="text-gray-500 leading-7">
-              Generate futuristic visuals and stunning AI art instantly.
-            </p>
-
           </motion.div>
           </Link>
 
        </div>
 
        {/* Massive Gradient Divider */}
-<div className="relative mt-40 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+<div className="relative mt-12 md:mt-40 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
 
 {/* Dashboard Preview */}
 <motion.div
@@ -240,9 +459,8 @@ function Home() {
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 1 }}
   viewport={{ once: true }}
-  className="relative mt-32 max-w-7xl mx-auto w-full"
+ className="relative mt-6 md:mt-32 max-w-7xl mx-auto w-full"
 >
-
   <div className="backdrop-blur-3xl bg-white/[0.03] border border-white/10 rounded-[40px] overflow-hidden shadow-2xl">
 
     {/* Top Bar */}

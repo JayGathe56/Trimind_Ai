@@ -15,18 +15,18 @@ function Login() {
       <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] bg-cyan-500/10 blur-[180px] rounded-full"></div>
       <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-purple-500/10 blur-[180px] rounded-full"></div>
 
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-8">
+     <div className="relative z-10 min-h-screen flex items-center justify-center p-4 md:p-8">
 
-        <div className="grid lg:grid-cols-2 gap-10 w-full max-w-7xl">
+      <div className="grid lg:grid-cols-2 gap-6 md:gap-10 w-full max-w-7xl">
 
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
-            className="rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-12"
+            className="rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-6 md:p-12"
           >
 
-            <h1 className="text-5xl font-black mb-4">
+            <h1 className="text-4xl md:text-5xl font-black mb-4">
               Welcome Back
             </h1>
 
@@ -58,7 +58,7 @@ function Login() {
   }}
   className="
   w-full h-20 rounded-[24px]
-  font-bold text-3xl
+  font-bold text-xl md:text-3xl
   bg-gradient-to-r
   from-cyan-500
   via-blue-500
@@ -114,7 +114,7 @@ function Login() {
         </span>
       </div>
 
-      <h2 className="text-6xl font-black text-cyan-400 mb-6">
+      <h2 className="text-4xl md:text-6xl font-black text-cyan-400 mb-6">
         Access Granted
       </h2>
 
@@ -127,15 +127,15 @@ function Login() {
   ) : (
 
     <>
-      <div className="w-32 h-32 rounded-full border-4 border-cyan-500/20 border-t-cyan-400 animate-spin mx-auto mb-10"></div>
+      <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-cyan-500/20 border-t-cyan-400 animate-spin mx-auto mt-10 mb-10"></div>
 
-      <h2 className="text-6xl font-black mb-6">
+      <h2 className="text-4xl md:text-6xl font-black mb-6">
         Access
         <br />
         The Future
       </h2>
 
-      <p className="text-gray-400 text-xl leading-10">
+      <p className="text-gray-400 text-base md:text-xl leading-8 md:leading-10">
         Enter the next generation AI ecosystem with intelligent tools and cinematic experiences.
       </p>
     </>

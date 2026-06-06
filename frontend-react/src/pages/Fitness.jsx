@@ -119,13 +119,13 @@ function Fitness() {
 
         <div className="flex items-center justify-between backdrop-blur-3xl bg-white/[0.03] border border-white/10 rounded-3xl px-8 py-5">
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
 
             <div className="w-3 h-3 rounded-full bg-green-400 shadow-[0_0_20px_#4ade80]"></div>
 
-            <h1 className="text-2xl font-semibold">
-              TriMind Fitness AI
-            </h1>
+            <h1 className="text-lg md:text-2xl font-semibold">
+  TriMind Fitness AI
+</h1>
 
           </div>
 
@@ -156,7 +156,15 @@ function Fitness() {
 
           </div>
 
-          <h1 className="text-7xl md:text-8xl font-black leading-none">
+          <h1 className="
+text-5xl
+sm:text-6xl
+md:text-7xl
+lg:text-8xl
+font-black
+leading-none
+"
+>
 
             Build Your
             <br />
@@ -192,12 +200,12 @@ function Fitness() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
           // className="backdrop-blur-3xl bg-white/[0.03] border border-white/10 rounded-[35px] p-8"
-        className="backdrop-blur-3xl bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[35px] p-8 h-[91vh] flex flex-col justify-between"
+        className="backdrop-blur-3xl bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[35px] p-8 lg:h-[91vh] flex flex-col justify-between"
         // className="bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[40px] p-10 shadow-[0_0_60px_rgba(0,255,170,0.06)]"
        
         >
 
-          <h2 className="text-4xl font-bold mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8">
             Body Metrics
           </h2>
 
@@ -446,7 +454,7 @@ function Fitness() {
         // > backdrop-blur-3xl bg-white/[0.03] border border-white/10 rounded-[35px] p-8 relative overflow-y-auto h-[89vh]"
        
         // className="bg-gradient-to-br from-emerald-500/20 via-cyan-500/10 to-transparent backdrop-blur-3xl border border-emerald-400/20 rounded-[40px] p-10 shadow-[0_0_100px_rgba(16,185,129,0.15)] overflow-y-auto h-[82vh]"
-        className="custom-scroll relative isolate overflow-y-auto overflow-x-hidden h-[91vh] rounded-[40px] border border-emerald-400/20 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.25),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_35%),linear-gradient(135deg,rgba(0,20,20,0.95),rgba(0,10,25,0.98))] backdrop-blur-3xl p-10"
+        className="custom-scroll relative isolate overflow-y-auto overflow-x-hidden lg:h-[91vh] min-h-[500px] rounded-[40px] border border-emerald-400/20 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.25),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_35%),linear-gradient(135deg,rgba(0,20,20,0.95),rgba(0,10,25,0.98))] backdrop-blur-3xl p-10"
         >
 
         <div className="relative z-10 overflow-y-auto h-[100%] pr-2">

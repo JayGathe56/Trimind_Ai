@@ -16,15 +16,15 @@ function Signup() {
 
       <div className="absolute bottom-[-250px] right-[-250px] w-[600px] h-[600px] bg-cyan-500/10 blur-[180px] rounded-full"></div>
 
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-8">
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-4 md:p-8">
 
-        <div className="grid lg:grid-cols-2 gap-10 w-full max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-10 w-full max-w-7xl">
 
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
-            className="relative overflow-hidden rounded-[40px] border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-cyan-500/10 backdrop-blur-3xl flex items-center justify-center"
+            className="order-2 lg:order-1 relative overflow-hidden rounded-[40px] border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-cyan-500/10 backdrop-blur-3xl flex items-center justify-center"
           >
 
            <div className="text-center px-10">
@@ -58,15 +58,15 @@ function Signup() {
   ) : (
 
     <>
-      <div className="w-32 h-32 rounded-full border-4 border-purple-500/20 border-t-purple-400 animate-spin mx-auto mb-10"></div>
+      <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-purple-500/20 border-t-purple-400 animate-spin mx-auto mt-10 mb-10"></div>
 
-      <h2 className="text-6xl font-black mb-6">
+      <h2 className="text-4xl md:text-6xl font-black mb-6">
         Join The
         <br />
         AI Revolution
       </h2>
 
-      <p className="text-gray-400 text-xl leading-10">
+      <p className="text-gray-400 text-base md:text-xl leading-8 md:leading-10">
         Build, create and generate with next-generation AI systems.
       </p>
     </>
@@ -81,10 +81,10 @@ function Signup() {
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
-            className="rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-12"
+            className="order-1 lg:order-2 rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-6 md:p-12"
           >
 
-            <h1 className="text-5xl font-black mb-4">
+            <h1 className="text-4xl md:text-5xl font-black mb-4">
               Create Account
             </h1>
 
@@ -128,7 +128,7 @@ function Signup() {
   }}
   className="
   w-full h-20 rounded-[24px]
-  font-bold text-3xl
+  font-bold text-xl md:text-3xl
   bg-gradient-to-r
   from-purple-500
   via-pink-500

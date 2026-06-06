@@ -75,21 +75,19 @@ const handleGenerate = async () => {
 
   <div className="flex items-center justify-between rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-3xl px-8 py-5">
 
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-2 md:gap-4">
 
       <div className="w-4 h-4 rounded-full bg-purple-400 shadow-[0_0_20px_rgba(168,85,247,1)]"></div>
 
-      <h1 className="text-3xl font-bold">
-
-        TriMind Image AI
-
-      </h1>
+     <h1 className="text-xl md:text-3xl font-bold">
+  TriMind Image AI
+</h1>
 
     </div>
 
     <Link
       to="/platform"
-      className="text-gray-400 hover:text-white transition-all"
+      className="text-sm md:text-base text-gray-400 hover:text-white transition-all whitespace-nowrap"
     >
       Back Platform
     </Link>
@@ -136,7 +134,14 @@ const handleGenerate = async () => {
     initial={{ opacity: 0, y: 100 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 1, ease: "easeOut" }}
-    className="text-7xl md:text-[110px] font-black leading-none tracking-[-4px]"
+    className="
+text-5xl
+sm:text-6xl
+md:text-7xl
+lg:text-[110px]
+font-black
+leading-none
+"
   >
 
     <motion.div
@@ -169,7 +174,17 @@ const handleGenerate = async () => {
     initial={{ opacity: 0, y: 50 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 1, delay: 0.5 }}
-    className="text-gray-400 max-w-4xl mx-auto mt-10 text-2xl leading-[50px]"
+    className="
+text-gray-400
+max-w-4xl
+mx-auto
+mt-8
+px-6
+text-lg
+md:text-2xl
+leading-9
+md:leading-[50px]
+"
   >
 
     Generate cinematic AI artwork, futuristic concepts,
@@ -275,7 +290,7 @@ const handleGenerate = async () => {
 <motion.div
   initial={{ opacity: 0, x: 40 }}
   animate={{ opacity: 1, x: 0 }}
-  className="relative overflow-hidden rounded-[40px] border border-purple-400/20 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.22),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_35%),linear-gradient(135deg,rgba(10,10,25,0.96),rgba(0,10,20,0.98))] backdrop-blur-3xl p-8 h-[95vh] overflow-y-auto"
+  className="relative overflow-hidden rounded-[40px] border border-purple-400/20 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.22),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_35%),linear-gradient(135deg,rgba(10,10,25,0.96),rgba(0,10,20,0.98))] backdrop-blur-3xl p-8 lg:h-[95vh] min-h-[600px] overflow-y-auto"
 >
 
   {/* Grid */}
@@ -286,7 +301,7 @@ const handleGenerate = async () => {
     {/* Top */}
     <div className="flex items-center justify-between mb-6">
 
-      <h2 className="text-5xl font-black">
+      <h2 className="text-3xl md:text-5xl font-black">
         Vision AI
       </h2>
 
@@ -331,7 +346,7 @@ const handleGenerate = async () => {
     alert("Pollinations server busy. Try again in a few minutes.");
     setImage("https://image.pollinations.ai/prompt/cat");
   }}
-  className="w-full rounded-[30px]"
+  className="w-full max-h-[500px] object-cover rounded-[30px]"
 />
 </div>
 
@@ -351,7 +366,7 @@ const handleGenerate = async () => {
 
     <div className="w-24 h-24 rounded-full border-4 border-purple-500/20 mx-auto mb-10"></div>
 
-    <h2 className="text-5xl font-black mb-6">
+    <h2 className="text-4xl md:text-5xl font-black mb-6">
       Awaiting Generation
     </h2>
 
