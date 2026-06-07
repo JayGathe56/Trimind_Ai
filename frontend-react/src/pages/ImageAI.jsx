@@ -2,6 +2,8 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function ImageAI() {
 
@@ -18,7 +20,7 @@ const handleGenerate = async () => {
     console.log("PROMPT =", prompt);
 
     const res = await axios.post(
-      "https://trimind-backend.onrender.com/api/image",
+      `${API_URL}/api/image`,
       {
         prompt,
       }

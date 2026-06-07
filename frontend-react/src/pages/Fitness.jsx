@@ -3,6 +3,9 @@ import { motion } from "framer-motion"
 import { useState, useRef } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:5000";
 
 function Fitness() {
 
@@ -17,7 +20,7 @@ function Fitness() {
     setLoading(true)
 
     const res = await axios.post(
-      "https://trimind-backend.onrender.com/api/fitness",
+     `${API_URL}/api/fitness`,
       formData
     )
 

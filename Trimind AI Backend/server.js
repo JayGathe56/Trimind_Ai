@@ -1,13 +1,28 @@
 // REAL TRIMIND BACKEND WITH GEMINI (CommonJS style)
 const express = require("express");
 const cors = require("cors");
+const Chat = require("./models/Chat");
+const Fitness = require("./models/Fitness");
+const Image = require("./models/Image");
 // const axios = require("axios");
 // axios.get("https://huggingface.co")
 //   .then(() => console.log("HF reachable"))
 //   .catch(err => console.log("HF Error:", err.message));
 require("dotenv").config();
+const mongoose = require("mongoose");
 const { GoogleGenAI } = require("@google/genai"); // works with require() 
 
+
+mongoose.connect(process.env.MONGO_URI, {
+  serverSelectionTimeoutMS: 10000,
+})
+.then(() => {
+  console.log("✅ MongoDB Connected");
+})
+.catch((err) => {
+  console.log("❌ Mongo Error:");
+  console.log(err.message);
+});
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -51,12 +66,22 @@ ${userPrompt.trim()}`;
 
 }
 
-
-
-
 // ---------- TEST ROUTE ----------
 app.get("/", (req, res) => {
   res.send("✅ TriMind backend + Gemini is running!");
+});
+
+app.get("/api/fitness-history", async (req, res) => {
+  try {
+    const plans = await Fitness.find()
+      .sort({ createdAt: -1 });
+
+    res.json(plans);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message
+    });
+  }
 });
 
 // ---------- 1) GENERAL CHATBOT /api/chat ----------
@@ -80,13 +105,23 @@ You are TriMind Chat – a helpful AI assistant built for a web app.
 `;
 
     const reply = await generateText(
-      systemPrompt,
-      message
-    );
+  systemPrompt,
+  message
+);
+console.log("MESSAGE RECEIVED:", message);
 
-    res.json({
-      reply
-    });
+const saved = await Chat.create({
+  message,
+  reply
+});
+
+console.log("SAVED CHAT:", saved);
+
+console.log("CHAT SAVED");
+
+res.json({
+  reply
+});
 
   } catch (err) {
 
@@ -151,13 +186,28 @@ User profile:
 Create a 5–6 day weekly plan.
 `;
 
-    const rawPlan = await generateText(systemPrompt, userPrompt);
+   const rawPlan = await generateText(
+  systemPrompt,
+  userPrompt
+);
 
-    console.log("FITNESS RAW PLAN:\n", rawPlan);
+const savedPlan = await Fitness.create({
+  age,
+  gender,
+  height,
+  weight,
+  goal,
+  activity,
+  setting,
+  plan: rawPlan
+});
 
-    res.json({
-      plan: rawPlan || ""
-    });
+console.log("FITNESS SAVED:", savedPlan);
+
+res.json({
+  plan: rawPlan || ""
+});
+
   } catch (err) {
     console.error("Fitness error:", err);
     res.json({
@@ -167,21 +217,50 @@ Create a 5–6 day weekly plan.
 });
 // ---------- 3) IMAGE GENERATOR /api/image ----------
 app.post("/api/image", async (req, res) => {
-  const { prompt } = req.body;
+  try {
+    const { prompt } = req.body;
 
-  if (!prompt) {
-    return res.status(400).json({
-      error: "Prompt is required"
+    if (!prompt) {
+      return res.status(400).json({
+        error: "Prompt is required"
+      });
+    }
+
+    const imageUrl =
+      `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}`;
+
+    const savedImage = await Image.create({
+      prompt,
+      imageUrl
+    });
+
+    console.log("IMAGE SAVED:", savedImage);
+
+    res.json({
+      success: true,
+      imageUrl
+    });
+
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({
+      error: "Failed to save image"
     });
   }
+});
 
-  const imageUrl =
-    `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}`;
+app.get("/api/image-history", async (req, res) => {
+  try {
+    const images = await Image.find()
+      .sort({ createdAt: -1 });
 
-  res.json({
-    success: true,
-    imageUrl
-  });
+    res.json(images);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message
+    });
+  }
 });
 // ---------- START SERVER ----------
 const PORT = process.env.PORT || 5000;

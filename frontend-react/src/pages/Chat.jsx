@@ -1,8 +1,43 @@
 import { motion } from "framer-motion"
 import { useState, useEffect, useRef } from "react"
 import axios from "axios"
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:5000";
 
 function Chat() {
+useEffect(() => {
+  const loadHistory = async () => {
+    try {
+      const res = await axios.get(
+  `${API_URL}/api/history`
+);
+
+      const chats = res.data.map((item) => ({
+        id: item._id,
+        title: item.message,
+        messages: [
+          {
+            role: "user",
+            text: item.message
+          },
+          {
+            role: "ai",
+            text: item.reply
+          }
+        ]
+      }));
+
+      setConversations(chats);
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  loadHistory();
+}, []);
+
   const [copiedIndex, setCopiedIndex] = useState(null)
 const textareaRef = useRef(null);
 
@@ -52,11 +87,11 @@ const userMessage = {
   try {
 
     const res = await axios.post(
-      "https://trimind-backend.onrender.com/api/chat",
-      {
-       message: messageText
-      }
-    )
+  `${API_URL}/api/chat`,
+  {
+    message: messageText
+  }
+)
 
     const aiMessage = {
       role: "ai",
@@ -428,20 +463,21 @@ space-y-6 md:space-y-8
       }, 1500)
 
     }}
-    className="
-      absolute
-      top-3
-      right-3
+  className="
+  absolute
+  top-3
+  right-3
 
-      opacity-0
-      group-hover:opacity-100
+  opacity-100
+  md:opacity-0
+  md:group-hover:opacity-100
 
-      text-gray-400
-      hover:text-white
+  text-gray-400
+  hover:text-white
 
-      transition-all
-      duration-300
-    "
+  transition-all
+  duration-300
+"
   >
 
     {copiedIndex === index ? "✓" : "⧉"}
