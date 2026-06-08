@@ -76,9 +76,12 @@ useEffect(() => {
         Features
       </a>
 
-      <a href="#" className="hover:text-white transition-all">
-        Pricing
-      </a>
+     <Link
+  to="/about"
+  className="hover:text-white transition-all"
+>
+  About
+</Link>
 
     </div>
 

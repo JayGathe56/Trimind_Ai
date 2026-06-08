@@ -7,6 +7,7 @@ import Fitness from "./pages/Fitness"
 import ImageAI from "./pages/ImageAI"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import About from "./pages/About";
 
 function App() {
 
@@ -27,6 +28,8 @@ function App() {
       <Route path="/login" element={<Login />} />
 
       <Route path="/signup" element={<Signup />} />
+      
+      <Route path="/about" element={<About />} />
 
     </Routes>
 
