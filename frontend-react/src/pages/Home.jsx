@@ -97,6 +97,7 @@ useEffect(() => {
   </div>
 
   {/* Mobile Dropdown */}
+  
   {menuOpen && (
 
     <div
@@ -152,13 +153,13 @@ useEffect(() => {
         Features
       </a>
 
-      <a
-        href="#"
-        onClick={() => setMenuOpen(false)}
-        className="px-4 py-3 rounded-xl text-white hover:bg-cyan-500/10"
-      >
-        Pricing
-      </a>
+      <Link
+  to="/about"
+  onClick={() => setMenuOpen(false)}
+  className="px-4 py-3 rounded-xl text-white hover:bg-cyan-500/10"
+>
+  About
+</Link>
 
     </div>
 
