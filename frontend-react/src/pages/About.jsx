@@ -122,11 +122,13 @@ hover:shadow-[0_0_40px_rgba(0,255,255,0.25)]
 ">
 
           <h2 className="text-3xl font-bold mb-6">
-            👨‍💻 Developer
+            👨‍💻 Developers
           </h2>
 
          <h3 className="text-3xl font-bold text-cyan-400">
-  Jay Gathe
+  Jay Gathe <br />
+  Samriddhi <br />
+  Kunal Sharma <br />
 </h3>
 <div className="flex items-center gap-1 mt-4">
   <FaInstagram className="text-pink-500 text-2xl" />
@@ -141,7 +143,7 @@ hover:shadow-[0_0_40px_rgba(0,255,255,0.25)]
   </a>
 </div>
 
-<p className="text-purple-400 mt-2">
+{/* <p className="text-purple-400 mt-2">
   Full Stack AI Developer
 </p>
 
@@ -150,7 +152,7 @@ hover:shadow-[0_0_40px_rgba(0,255,255,0.25)]
             and futuristic digital experiences.
             Built TriMind AI using modern technologies including
             React, Node.js, Express, MongoDB and Google Gemini AI.
-          </p>
+          </p> */}
 
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
